@@ -41,7 +41,7 @@
     #\ю "iu"
     #\я "ia"))
 
-(defun trans (character &optional (table *transliterate-table*))
+(defun %trans (character &optional (table *transliterate-table*))
   (if (alpha-char-p character)
       (if (upper-case-p character)
           (string-capitalize (getf table
@@ -55,4 +55,4 @@
 (defun transliterate (string &optional (table *transliterate-table*))
   (apply #'concatenate 'string
          (iter (for char in-string string)
-               (collect (trans char table)))))
+               (collect (%trans char table)))))
